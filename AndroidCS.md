@@ -22,3 +22,14 @@ viewLifecycleOwner는 프래그먼트 뷰의 생명주기를 가진다. `onCreat
 Density Independent Pixel의 약자로 밀도에 독립적인 픽셀입니다. px 단위로 크기를 설정하면 화면 밀도가 클수록 이미지가 더 작아지게 된다.
 이것을 해결하기 위한 것이 dp 단위다.
 안드로이드에서는 모든 디바이스의 화면 크기에 관계없이 이미지의 비율을 동일하게 만들고자 dp를 사용한다. dp는 해상도에 독립적이기 때문이다.
+
+
+## Intent란?
+Activity같은 Android Componenet간 소통하는데 사용되는 개념으로 Data와 Action을 명시하여 전달하는 메세징 객체
+* 명시적 인텐트 
+  * 인탠트에 클래스 객체나 컴포넌트 이름을 지정하여 호출될 대상을 확실히 알 수 있는 경우
+* 암시적 인텐트 
+  * 호출될 대상의 속성들을 지정했지만 호출될 대상이 달라질 수 있는 경우
+[좋은 글](https://medium.com/@wodbs135/%EC%9D%98%EB%8F%84-intent-%EB%A5%BC-%EC%95%8C%EA%B3%A0-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-d724e9d938d7)
+
+
