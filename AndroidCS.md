@@ -41,4 +41,23 @@ Activity같은 Android Componenet간 소통하는데 사용되는 개념으로 D
 다른 프로세스(앱)에게 권한을 허가하여 Intent가 마치 본인 앱에서 실행되는 것처럼 사용하게 된다.
 이런 이유로 특정 싲머에 Intent는 무조건 실행될 수 있도록 보장된다.
 
+## Clean Architecture 정리
+### 간단한 정의
+시스템을 독립적인 계층으로나누어 유지보수성, 확장성, 테스트 용이성을 높이는 방법
+### 의존성 방향
+Presentation -> Domain <- Data
+### 구조 
+![img.png](img.png)
+
+Presentation = viewModel + View
+Domain = entity + usecase + repository
+Data = api(network) + repository impl + DB
+
+### UseCase는 왜 사용할까?
+만약 useCase를 사용하지 않으면 viewModel에서 repository를 가져와 사용하게 될텐데 그렇게되면 repository가 수정될 때마다 모든 참조하는 곳에서 수정을 해야한다
+그런 일을 방지하기 위해서 useCase를 적용한다. useCase는 repository에 의존해서 비지니스 로직을 돌리고 viewModel은 usecase 호출하기에 로직에 대한 수정을 최소화할 수 있다
+
+### 개발하면서 느낀점?
+useCase의 사용감이 굉장히 좋았다. 한 기능을 여러군 곳에서 사용할 때 간단하게 적용이 가능하며 로직에 변경이 있을 때도 테스트 및 적용이 간편했다.
+다만 어느 시점에서는 오버헤드가 크다고 느끼기도 했다
 
