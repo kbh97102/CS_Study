@@ -50,7 +50,9 @@ Presentation -> Domain <- Data
 ![img.png](img.png)
 
 Presentation = viewModel + View
+
 Domain = entity + usecase + repository
+
 Data = api(network) + repository impl + DB
 
 ### UseCase는 왜 사용할까?
@@ -77,3 +79,17 @@ Di 프레임워크 중 하나로 Dagger를 기반으로 빌드되었다.
 Provides 방식은 Binds와 달리 자동 생성클래스가 더 만들어진다. 
 ### 한 객체에 대해 다른 옵션을 가진 인스턴스를 주입하고 싶다면?
 `@Qualifier`를 통해 구별해서 사용 가능하다.
+
+## Object, companion object 대해서
+### Object
+* 싱글톤 패턴을 쉽게 사용하기위한 객체 선언 키워드
+* 오브젝트로 생성된 객체는 thread safe 하다
+* 객체가 처음으로 사용되는 시점에 생성된다.
+* 생성자를 사용할 수는 없다.
+
+### companion object
+* 클래스 내부에서 싱글턴 패턴을 구현하기 위한 키워드
+* 클래스 당 하나만 생성가능
+* 속한 클래스가 load 될 때 생성됨
+
+
