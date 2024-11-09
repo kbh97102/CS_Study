@@ -119,3 +119,9 @@ Provides 방식은 Binds와 달리 자동 생성클래스가 더 만들어진다
 * red-black tree로 구성
 * 키값을 기본적으로는 숫자 오름차숫, 알파벳 순처럼 왼쪽에는 작은값, 오른쪽에는 큰값이 들어가게된다 
 * Comparator 커스텀을 통해 기준을 세워 적용할 수 있다
+
+## Set이란?
+* 중복을 허용하지 않는 자료구조
+* TreeSet, HashSet, LinkedHashSet 모두 HashMap과 동일한 특성을 가지고 있다 왜냐하면 내부적으로는 TreeMap, HashMap, LinkedHashMap으로 구현되어있다
+### setOf, hashSetOf 의 차이점은?
+setOf는 불변 set을, hashSetOf는 mutable한 set을 반환해준다
