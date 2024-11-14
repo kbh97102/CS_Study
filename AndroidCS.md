@@ -151,5 +151,44 @@ override fun foo() {
 ### composition
 컴포지션은 객체가 다른 객체를 포함하고 있는 관계를 나타내는 방법 객체 안에 다른 객체를 멤버 변수로 선언하고, 해당 객체의 메서드를 호출하여 사용한다.
 
-
-
+# ANR을 예방하는 방법은?
+코딩할 때 메인스레드 사용에 주의하거나 무거운 작업을 분할한다든지 여러 방법이 있지만 예방을 할 수 있는 다른 방법이 있다.
+### Strict Mode
+개발자 옵션으로 활성화가 가능하며 해당 옵션을 활성화하면 시간이 오래 걸리는 작업이 발생할 때마다 화면 가장자리가 깜빡인다.
+이를 통해 개발자는 해당 부분에 ANR이 발생할 수 있는 위험요소가 있다고 알 수 있다.
+### Strict Mode API
+메인 스레드에서 IO 작업(디스크 접근 or network)을 진행하는 것을 체크하기 위해 사용된다. 이를 통해 ANR이 일어날 가능성을 줄이고 ANR을 예방할 수 있다.
+#### Policy
+* Thread Policy
+  * Disk Read, Disk Write, Network, Resource Mismatch and Slow code
+* VM Policy 
+  * Activity Leak, SQLite Object, Closable Object, Object Leak, File URL exposure.
+#### 사용법
+Application, Activity 가 생성되기 전에 설정을 해주면된다
+``` kotlin
+public void onCreate() {
+     StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+             .detectDiskReads()
+             .detectDiskWrites()
+             .detectNetwork()   // or .detectAll() for all detectable problems
+             .penaltyLog()
+             .build());
+     StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+             .detectLeakedSqlLiteObjects()
+             .detectLeakedClosableObjects()
+             .penaltyLog()
+             .penaltyDeath()
+             .build());
+     super.onCreate();
+ }
+```
+#### Penalty types
+* `penaltyLog()`
+  * 위반 사항을 로그캣에 추가
+* `penaltyDeath()`
+  * 위반 발생 시 강제종료 해 크리티컬한 이슈 확인 가능하도록 설정
+* `penaltyDialog()`
+  * 사용자에게 경고 대화 상자 추가, 개발시에만 사용하며 실제 릴리즈에서 사용하지 말 것
+### Strict mode의 장점
+* 발견된 이슈를 해결함으로써 더 빠르고 반응성이 개선되어 UX가 향상됨
+* ANR 회피 가능
